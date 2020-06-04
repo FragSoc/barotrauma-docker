@@ -36,5 +36,5 @@ The container uses two volumes:
 
 The few files in this repository are licensed under the [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-However, Barotrauma itself is licensed by [Undertow Games](https://undertowgames.com/) and [Fakefish](http://fakefishgames.com/#home), I do not take any credit for the software running in this container.
+However, Barotrauma itself is licensed by [Undertow Games](https://undertowgames.com/) and [Fakefish](http://fakefishgames.com/#home), no credit is taken for the software running in this container.
 Read [their EULA](https://github.com/Regalis11/Barotrauma/blob/master/EULA.txt) for more information.
