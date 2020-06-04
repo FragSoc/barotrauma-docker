@@ -25,6 +25,12 @@ The container uses two volumes:
 
 **Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by UID/GID `999`*
 
+## Known Issues
+
+- Game save state isn't stored in a volume yet
+- Coloured output from the server does not appear in docker logs unless running in interactive mode
+- Issuing commands to the server is extremely cumbersome
+
 ## Licensing
 
 This repository is licensed under the [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html).
