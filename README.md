@@ -22,6 +22,6 @@ docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 
 ## Licensing
 
-This repository is licensed under the GPL.
+This repository is licensed under the [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-However, Barotrauma is licensed by Undertow Games and Fakefish, I do not take any credit for the software running in this container.
+However, Barotrauma is licensed by [Undertow Games](https://undertowgames.com/) and [Fakefish](http://fakefishgames.com/#home), I do not take any credit for the software running in this container.
