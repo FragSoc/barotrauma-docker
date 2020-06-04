@@ -6,5 +6,7 @@ services:
     ports:
       - "27015:27015/udp"
       - "27016:27016/udp"
+    stdin_open: true
+    tty: true
 
 version: "3"
