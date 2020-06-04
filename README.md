@@ -30,6 +30,7 @@ The container uses two volumes:
 - Game save state isn't stored in a volume yet
 - Coloured output from the server does not appear in docker logs unless running in interactive mode
 - Issuing commands to the server is extremely cumbersome
+- The docker `--user` flag is not supported
 
 ## Licensing
 
