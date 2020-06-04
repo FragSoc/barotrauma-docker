@@ -8,6 +8,12 @@ docker build -t barotrauma .
 docker run -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
+## Licensing
+
+This repository is licensed under the GPL.
+
+However, Barotrauma is licensed by Undertow Games and Fakefish, I do not take any credit for the software running in this container.
+
 ***Note:***
 
 - The game configuration directory is at `/config` within the container; mount this if you wish
