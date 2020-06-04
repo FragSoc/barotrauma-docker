@@ -16,6 +16,11 @@ docker build -t barotrauma .
 docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
+## Ports
+
+- Port `27015` *must* be opened for client connections
+- Port `27016` can optionally be opened for steam communication
+
 ## Volumes
 
 The container uses two volumes:
@@ -24,13 +29,6 @@ The container uses two volumes:
 - Mods files at `/mods`
 
 **Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by UID/GID `999`*
-
-## Known Issues
-
-- Game save state isn't stored in a volume yet
-- Coloured output from the server does not appear in docker logs unless running in interactive mode
-- Issuing commands to the server is extremely cumbersome
-- The docker `--user` flag is not supported
 
 ## Licensing
 
