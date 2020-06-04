@@ -27,6 +27,7 @@ The container uses two volumes:
 
 - Server configuration files at `/config`
 - Mods files at `/mods`
+- Saves at `/saves`
 
 **Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by UID/GID `999`*
 
