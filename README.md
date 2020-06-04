@@ -16,10 +16,14 @@ docker build -t barotrauma .
 docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
-## Note
+## Volumes
 
-- The game configuration directory is at `/config` within the container; [mount](https://docs.docker.com/storage/volumes/) this if you wish
-- **But** take note that if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the place you mount into the container *must* be owned by UID/GID `999`
+The container uses two volumes:
+
+- Server configuration files at `/config`
+- Mods files at `/mods`
+
+**Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by UID/GID `999`*
 
 ## Licensing
 

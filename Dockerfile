@@ -3,7 +3,9 @@ MAINTAINER Laura Demkowicz-Duffy
 
 ENV INSTALL_LOC "/barotrauma"
 ENV CONFIG_LOC "/config"
-ENV CONF_BASE "/serversettings_ro.xml"
+ENV MODS_LOC "/mods"
+ENV CONF_BASE "/config_readonly"
+ENV MODS_BASE "/mods_readonly"
 ENV HOME $INSTALL_LOC
 
 # Update and install unicode symbols
@@ -27,13 +29,29 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so
 
 # Sort configs and directories
-RUN mkdir $CONFIG_LOC && \
-    mv $INSTALL_LOC/serversettings.xml $CONF_BASE && \
+RUN mkdir -p $CONFIG_LOC $CONF_BASE && \
+    mv \
+        $INSTALL_LOC/serversettings.xml \
+        $INSTALL_LOC/Data/clientpermissions.xml \
+        $INSTALL_LOC/Data/permissionpresets.xml \
+        $INSTALL_LOC/Data/karmasettings.xml \
+        $CONF_BASE && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
-    chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC
+    ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
+    ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
+    ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml
+
+# Setup mods folder
+RUN mv $INSTALL_LOC/Mods $MODS_BASE && \
+    mkdir -p $MODS_LOC && \
+    ln -s $MODS_LOC $INSTALL_LOC/Mods
+
+# Set directory permissions
+RUN chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $MODS_LOC
 
 USER barotrauma
 VOLUME $CONFIG_LOC
+VOLUME $MODS_LOC
 EXPOSE 27015/udp
 EXPOSE 27016/udp
 
