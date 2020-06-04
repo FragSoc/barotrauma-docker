@@ -49,7 +49,7 @@ RUN mv $INSTALL_LOC/Mods $MODS_BASE && \
 
 # Setup saves folder
 RUN mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" $SAVES_LOC && \
-    ln -s "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma" $SAVES_LOC
+    ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
 
 # Set directory permissions
 RUN chown -R barotrauma:barotrauma \
