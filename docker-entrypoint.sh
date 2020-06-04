@@ -2,12 +2,18 @@
 
 set -e
 
-if [[ ! -f $CONFIG_LOC/serversettings.xml ]]; then
-    cp $CONF_BASE/* "$CONFIG_LOC"
-fi
+CONFIGS=(
+    serversettings.xml
+    karmasettings.xml
+    permissionpresets.xml
+    clientpermissions.xml
+)
 
-if [[ ! -f $MODS_LOC/info.txt ]]; then
-    cp -r $MODS_BASE/* "$MODS_LOC"
-fi
+# Copy example configs in
+for c in "${CONFIGS[@]}"; do
+    if [[ ! -f $CONFIG_LOC/$c ]]; then
+        cp "$CONF_BASE/$c" "$CONFIG_LOC"
+    fi
+done
 
 "$INSTALL_LOC/DedicatedServer" "$@"
