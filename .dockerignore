@@ -1,3 +1,5 @@
 docker-compose.yml
 .git
 .dockerignore
+LICENSE
+README.md
