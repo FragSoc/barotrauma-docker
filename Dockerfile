@@ -4,6 +4,7 @@ MAINTAINER Laura Demkowicz-Duffy
 ENV INSTALL_LOC "/barotrauma"
 ENV CONFIG_LOC "/config"
 ENV MODS_LOC "/mods"
+ENV SAVES_LOC "/saves"
 ENV CONF_BASE "/config_readonly"
 ENV MODS_BASE "/mods_readonly"
 ENV HOME $INSTALL_LOC
@@ -46,8 +47,13 @@ RUN mv $INSTALL_LOC/Mods $MODS_BASE && \
     mkdir -p $MODS_LOC && \
     ln -s $MODS_LOC $INSTALL_LOC/Mods
 
+# Setup saves folder
+RUN mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" $SAVES_LOC && \
+    ln -s "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma" $SAVES_LOC
+
 # Set directory permissions
-RUN chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $MODS_LOC
+RUN chown -R barotrauma:barotrauma \
+    $CONFIG_LOC $INSTALL_LOC $MODS_LOC $SAVES_LOC
 
 USER barotrauma
 VOLUME $CONFIG_LOC
