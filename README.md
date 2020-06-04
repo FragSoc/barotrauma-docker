@@ -1,11 +1,18 @@
 # Barotrauma Docker Image
 
-A docker image for running a dedicated server for the game [Barotrauma](https://barotraumagame.com/).
-Build and run with:
+A [docker](https://www.docker.com/) image for running a dedicated server for the game [Barotrauma](https://barotraumagame.com/).
+
+Build and run using [docker-compose](https://docs.docker.com/compose/):
+
+```bash
+docker-compose up -d
+```
+
+If you want to run without docker-compose:
 
 ```bash
 docker build -t barotrauma .
-docker run -p 27015:27015/udp -p 27016:27016/udp barotrauma
+docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
 ## Note
