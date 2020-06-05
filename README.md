@@ -10,6 +10,8 @@ docker build -t barotrauma .
 docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
+**Note:** *the UID of the user in the container defaults to `999`, pass `UID` as a build arg to change this*
+
 ## Ports
 
 - Port `27015` *must* be opened for client connections
@@ -23,7 +25,7 @@ The container uses two volumes:
 - Mods files at `/mods`
 - Saves at `/saves`
 
-**Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by UID/GID `999`*
+**Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by the UID you passed to the build (default `999`)*
 
 ## Licensing
 
