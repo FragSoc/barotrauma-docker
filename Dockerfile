@@ -7,7 +7,8 @@ ENV MODS_LOC "/mods"
 ENV SAVES_LOC "/saves"
 ENV CONF_BASE "/config_readonly"
 ENV HOME $INSTALL_LOC
-ENV UID 999
+
+ARG UID=999
 
 # Update and install unicode symbols
 RUN apt update && \

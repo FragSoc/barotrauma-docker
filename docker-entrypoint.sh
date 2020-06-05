@@ -16,4 +16,4 @@ for c in "${CONFIGS[@]}"; do
     fi
 done
 
-"$INSTALL_LOC/DedicatedServer" "$@"
+"$INSTALL_LOC/DedicatedServer" $@
