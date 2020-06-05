@@ -6,7 +6,6 @@ ENV CONFIG_LOC "/config"
 ENV MODS_LOC "/mods"
 ENV SAVES_LOC "/saves"
 ENV CONF_BASE "/config_readonly"
-ENV MODS_BASE "/mods_readonly"
 ENV HOME $INSTALL_LOC
 ENV UID 999
 
@@ -34,20 +33,18 @@ RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so
 RUN mkdir -p $CONFIG_LOC $CONF_BASE && \
     mv \
         $INSTALL_LOC/serversettings.xml \
-        $INSTALL_LOC/player_config.xml
         $INSTALL_LOC/Data/clientpermissions.xml \
         $INSTALL_LOC/Data/permissionpresets.xml \
         $INSTALL_LOC/Data/karmasettings.xml \
         $CONF_BASE && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
-    ln -s $CONFIG_LOC/player_config.xml $INSTALL_LOC/player_config.xml && \
+    ln -s $CONFIG_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
     ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
     ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml
 
 # Setup mods folder
-RUN mv $INSTALL_LOC/Mods $MODS_BASE && \
-    mkdir -p $MODS_LOC && \
+RUN mv $INSTALL_LOC/Mods $MODS_LOC && \
     ln -s $MODS_LOC $INSTALL_LOC/Mods
 
 # Setup saves folder
