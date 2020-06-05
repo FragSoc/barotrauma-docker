@@ -17,6 +17,6 @@ for c in "${CONFIGS[@]}"; do
 done
 
 # Copy mod filelists in
-find "$MODS_LOC" -maxdepth 1 -type d -exec sh -c 'cp "{}/filelist.xml" "$INSTALL_LOC/Data/ContentPackages/$(basename {}).xml"' \;
+# find "$MODS_LOC" -maxdepth 1 -type d -exec sh -c 'sed "s/NewWorkshopItem/$(basename {})/" "{}/filelist.xml" > "$INSTALL_LOC/Data/ContentPackages/$(basename {}).xml"' \;
 
 "$INSTALL_LOC/DedicatedServer" $@

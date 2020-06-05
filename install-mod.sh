@@ -24,7 +24,8 @@ command ${install_command[@]}
 # Move them
 cp -r "$RETRIEVE_DIR"/* "$MODS_LOC"
 
-printf "\n\nEnter the following lines into your config_player.xml file:\n"
+printf "\n\nEnter the following line into your config_player.xml file to enable the mod:\n"
 for mod in "${mod_nums[@]}"; do
-    printf "<contentpackage path=\"Data/ContentPackages/%s.xml\" />\n" "$mod"
+    printf "<contentpackage path=\"Mods/%s/filelist.xml\" />\n" "$mod"
+    sed -i "s/file=\"/file=\"Mods\\\\$mod\\\\/" "$MODS_LOC/$mod/filelist.xml"
 done
