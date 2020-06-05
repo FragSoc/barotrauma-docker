@@ -4,6 +4,7 @@ set -e
 
 CONFIGS=(
     serversettings.xml
+    player_config.xml
     karmasettings.xml
     permissionpresets.xml
     clientpermissions.xml

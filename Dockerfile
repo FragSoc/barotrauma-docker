@@ -8,6 +8,7 @@ ENV SAVES_LOC "/saves"
 ENV CONF_BASE "/config_readonly"
 ENV MODS_BASE "/mods_readonly"
 ENV HOME $INSTALL_LOC
+ENV UID 1000
 
 # Update and install unicode symbols
 RUN apt update && \
@@ -15,7 +16,7 @@ RUN apt update && \
     apt install icu-devtools --assume-yes
 
 # Create a dedicated user
-RUN useradd -rs /bin/false -d $INSTALL_LOC barotrauma
+RUN useradd -rs /bin/false -d $INSTALL_LOC -u $UID barotrauma
 
 # Install the barotrauma server
 RUN steamcmd \
@@ -33,11 +34,13 @@ RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so
 RUN mkdir -p $CONFIG_LOC $CONF_BASE && \
     mv \
         $INSTALL_LOC/serversettings.xml \
+        $INSTALL_LOC/player_config.xml
         $INSTALL_LOC/Data/clientpermissions.xml \
         $INSTALL_LOC/Data/permissionpresets.xml \
         $INSTALL_LOC/Data/karmasettings.xml \
         $CONF_BASE && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
+    ln -s $CONFIG_LOC/player_config.xml $INSTALL_LOC/player_config.xml && \
     ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
     ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
     ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml
