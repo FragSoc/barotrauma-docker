@@ -1,6 +1,5 @@
 FROM steamcmd/steamcmd
-MAINTAINER Laura Demkowicz-Duffy
-
+MAINTAINER Laura Demkowicz-Duffy 
 ENV INSTALL_LOC "/barotrauma"
 ENV CONFIG_LOC "/config"
 ENV MODS_LOC "/mods"
@@ -25,7 +24,11 @@ RUN steamcmd \
     +app_update 1026340 validate \
     +quit
 
+# Install scripts
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY install-mod.sh /install-mod.sh
+RUN ln -s /docker-entrypoint.sh /usr/bin/docker-entrypoint && \
+    ln -s /install-mod.sh /usr/bin/install-mod
 
 # Symlink the game's steam client object into the include directory
 RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so

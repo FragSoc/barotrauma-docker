@@ -16,4 +16,7 @@ for c in "${CONFIGS[@]}"; do
     fi
 done
 
+# Copy mod filelists in
+find "$MODS_LOC" -maxdepth 1 -type d -exec sh -c 'cp "{}/filelist.xml" "$INSTALL_LOC/Data/ContentPackages/$(basename {}).xml"' \;
+
 "$INSTALL_LOC/DedicatedServer" $@
