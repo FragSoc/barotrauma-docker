@@ -11,8 +11,10 @@ ENV CONF_BASE "/config_readonly"
 # Required since useradd does not appear to set $HOME
 ENV HOME $INSTALL_LOC
 
-# Default UID
+# Build args
 ARG UID=999
+ARG GAME_PORT=27015
+ARG STEAM_PORT=27016
 
 # Update and install unicode symbols
 RUN apt update && \
@@ -67,8 +69,8 @@ USER barotrauma
 VOLUME $CONFIG_LOC
 VOLUME $MODS_LOC
 VOLUME $SAVES_LOC
-EXPOSE 27015/udp
-EXPOSE 27016/udp
+EXPOSE $GAME_PORT/udp
+EXPOSE STEAM_PORT/udp
 
 # Exec
 WORKDIR $INSTALL_LOC
