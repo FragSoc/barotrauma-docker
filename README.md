@@ -1,4 +1,6 @@
-# Barotrauma Docker Image
+<center>
+    <img width=100% src="https://ehpodcasts.files.wordpress.com/2019/06/barotrauma-logo.jpg"/>
+</center>
 
 A [docker](https://www.docker.com/) image for running a dedicated server for the game [Barotrauma](https://barotraumagame.com/).
 Tested with server version `0.9.9.1`.
@@ -39,7 +41,7 @@ install-mod <steam username> <list of workshop IDs>
 ```
 
 - You will be prompted by steamcmd to log in, this is because the steam workshop requires someone who owns the game to be logged in to download anything
-- The script will give you a list of lines to enter into your `/config/config_player.xml` file (make sure you get them inside the outer tags)
+- The script will give you a list of lines to enter into your `/config/config_player.xml` file (make sure you get them inside the root tag)
 - Some mods may require special attention to paths inside their `filelist.xml` files
 
 ## Licensing
