@@ -4,6 +4,8 @@
     </a>
 </center>
 
+![](https://img.shields.io/travis/com/FragSoc/barotrauma-docker?style=flat-square)
+
 A [docker](https://www.docker.com/) image for running a dedicated server for the game [Barotrauma](https://barotraumagame.com/).
 Tested with server version `0.9.9.1`.
 
