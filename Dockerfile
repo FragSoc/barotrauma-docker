@@ -17,9 +17,9 @@ ARG GAME_PORT=27015
 ARG STEAM_PORT=27016
 
 # Update and install unicode symbols
-RUN apt update && \
-    apt upgrade --assume-yes && \
-    apt install icu-devtools --assume-yes
+RUN apt update
+RUN apt upgrade --assume-yes
+RUN apt install icu-devtools --assume-yes
 
 # Create a dedicated user
 RUN useradd -rs /bin/false -d $INSTALL_LOC -u $UID barotrauma
@@ -39,26 +39,26 @@ COPY install-mod.sh /usr/bin/install-mod
 RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so
 
 # Sort configs and directories
-RUN mkdir -p $CONFIG_LOC $CONF_BASE && \
-    mv \
-        $INSTALL_LOC/serversettings.xml \
-        $INSTALL_LOC/Data/clientpermissions.xml \
-        $INSTALL_LOC/Data/permissionpresets.xml \
-        $INSTALL_LOC/Data/karmasettings.xml \
-        $CONF_BASE && \
-    ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
-    ln -s $CONFIG_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
-    ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
-    ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
-    ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml
+RUN mkdir -p $CONFIG_LOC $CONF_BASE
+RUN mv \
+    $INSTALL_LOC/serversettings.xml \
+    $INSTALL_LOC/Data/clientpermissions.xml \
+    $INSTALL_LOC/Data/permissionpresets.xml \
+    $INSTALL_LOC/Data/karmasettings.xml \
+    $CONF_BASE
+RUN ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml
+RUN ln -s $CONFIG_LOC/config_player.xml $INSTALL_LOC/config_player.xml
+RUN ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml
+RUN ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml
+RUN ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml
 
 # Setup mods folder
-RUN mv $INSTALL_LOC/Mods $MODS_LOC && \
-    ln -s $MODS_LOC $INSTALL_LOC/Mods
+RUN mv $INSTALL_LOC/Mods $MODS_LOC
+RUN ln -s $MODS_LOC $INSTALL_LOC/Mods
 
 # Setup saves folder
-RUN mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" $SAVES_LOC && \
-    ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
+RUN mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" $SAVES_LOC
+RUN ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
 
 # Set directory permissions
 RUN chown -R barotrauma:barotrauma \
