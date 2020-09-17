@@ -2,19 +2,20 @@ FROM steamcmd/steamcmd
 MAINTAINER Laura Demkowicz-Duffy <fragsoc@yusu.org>
 
 # Directories
-ENV INSTALL_LOC "/barotrauma"
-ENV CONFIG_LOC "/config"
-ENV MODS_LOC "/mods"
-ENV SAVES_LOC "/saves"
-ENV CONF_BASE "/config_readonly"
+ENV INSTALL_LOC="/barotrauma"
+ENV CONFIG_LOC="/config"
+ENV MODS_LOC="/mods"
+ENV SAVES_LOC="/saves"
+ENV CONF_BASE="/config_readonly"
 
 # Required since useradd does not appear to set $HOME
-ENV HOME $INSTALL_LOC
+ENV HOME=$INSTALL_LOC
 
 # Build args
 ARG UID=999
 ARG GAME_PORT=27015
 ARG STEAM_PORT=27016
+ARG APPID=1026340
 
 # Update and install unicode symbols
 RUN apt update
@@ -28,7 +29,7 @@ RUN useradd -rs /bin/false -d $INSTALL_LOC -u $UID barotrauma
 RUN steamcmd \
     +login anonymous \
     +force_install_dir /barotrauma \
-    +app_update 1026340 validate \
+    +app_update $APPID validate \
     +quit
 
 # Install scripts
