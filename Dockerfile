@@ -19,7 +19,6 @@ ARG APPID=1026340
 
 # Update and install unicode symbols
 RUN apt update
-RUN apt upgrade --assume-yes
 RUN apt install icu-devtools --assume-yes
 
 # Create a dedicated user
