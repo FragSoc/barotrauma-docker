@@ -5,6 +5,7 @@
     <br/>
     <img alt="Travis (.com)" src="https://img.shields.io/travis/com/FragSoc/barotrauma-docker?style=flat-square">
     <img alt="GitHub" src="https://img.shields.io/github/license/FragSoc/barotrauma-docker?style=flat-square">
+    <img alt="TestedVersion" src="https://img.shields.io/badge/tested%20with-0.9.9.1-informational?style=flat-square">
 </center>
 
 
@@ -26,8 +27,8 @@ docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 
 ### Ports
 
-- Port `27015` *must* be opened for client connections
-- Port `27016` can optionally be opened for steam communication
+- Port `27015/udp` *must* be opened for client connections
+- Port `27016/udp` can optionally be opened for steam communication
 
 ### Volumes
 
