@@ -4,6 +4,7 @@ MAINTAINER Laura Demkowicz-Duffy <fragsoc@yusu.org>
 # Directories
 ENV INSTALL_LOC="/barotrauma"
 ENV CONFIG_LOC="/config"
+ENV CONFIG_BASE="/config_base"
 ENV MODS_LOC="/mods"
 ENV SAVES_LOC="/saves"
 
@@ -26,11 +27,12 @@ RUN apt-get update && \
     groupadd -r -g $GID barotrauma && \
     useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g barotrauma barotrauma && \
     # Setup directories
-    mkdir -p $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC && \
-    chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC
+    mkdir -p $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC $CONFIG_BASE && \
+    chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC $CONFIG_BASE
 
 # Install scripts
 COPY install-mod.sh /usr/bin/install-mod
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 # Switch to our unprivileged user
 WORKDIR $INSTALL_LOC
@@ -41,22 +43,23 @@ RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
         +app_update $APPID validate \
-        +quit && \
+        +quit
+
+# Setup mods folder
+RUN mv $INSTALL_LOC/Mods/* $MODS_LOC && \
+    ln -fs $MODS_LOC $INSTALL_LOC/Mods && \
+    ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     # Setup config folder
     mv \
         $INSTALL_LOC/serversettings.xml \
         $INSTALL_LOC/Data/clientpermissions.xml \
         $INSTALL_LOC/Data/permissionpresets.xml \
         $INSTALL_LOC/Data/karmasettings.xml \
-        $CONFIG_LOC && \
+        $CONFIG_BASE && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
-    ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
     ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
     ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml && \
-    # Setup mods folder
-    mv $INSTALL_LOC/Mods/* $MODS_LOC && \
-    ln -s $MODS_LOC $INSTALL_LOC/Mods && \
     # Setup saves folder
     mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" && \
     ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
@@ -64,4 +67,4 @@ RUN steamcmd \
 # I/O and exec
 VOLUME $CONFIG_LOC $MODS_LOC $SAVES_LOC
 EXPOSE $GAME_PORT/udp $STEAM_PORT/udp
-ENTRYPOINT ["./DedicatedServer"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
