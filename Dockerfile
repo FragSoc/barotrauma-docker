@@ -6,7 +6,6 @@ ENV INSTALL_LOC="/barotrauma"
 ENV CONFIG_LOC="/config"
 ENV MODS_LOC="/mods"
 ENV SAVES_LOC="/saves"
-ENV CONF_BASE="/config_readonly"
 
 # Required since useradd does not appear to set $HOME
 ENV HOME=$INSTALL_LOC
@@ -23,11 +22,11 @@ RUN apt-get update && \
     apt-get install --no-install-recommends --assume-yes icu-devtools && \
     # Create a dedicated user
     groupadd -r -g $GID barotrauma && \
-    useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g $GID barotrauma && \
+    useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g barotrauma barotrauma && \
     # Install the barotrauma server
     steamcmd \
         +login anonymous \
-        +force_install_dir /barotrauma \
+        +force_install_dir $INSTALL_LOC \
         +app_update $APPID validate \
         +quit
 
@@ -44,7 +43,7 @@ RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so && \
         $INSTALL_LOC/Data/clientpermissions.xml \
         $INSTALL_LOC/Data/permissionpresets.xml \
         $INSTALL_LOC/Data/karmasettings.xml \
-        $CONF_BASE && \
+        $CONFIG_LOC && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
     ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
@@ -66,4 +65,4 @@ EXPOSE $GAME_PORT/udp $STEAM_PORT/udp
 
 # Exec
 WORKDIR $INSTALL_LOC
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["./DedicatedServer"]
