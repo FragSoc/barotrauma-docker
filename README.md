@@ -1,18 +1,17 @@
-<center>
+<div align="center">
     <a href=https://barotraumagame.com/>
         <img width=100% src="https://ehpodcasts.files.wordpress.com/2019/06/barotrauma-logo.jpg"/>
     </a>
     <br/>
     <img alt="Travis (.com)" src="https://img.shields.io/travis/com/FragSoc/barotrauma-docker?style=flat-square">
     <img alt="GitHub" src="https://img.shields.io/github/license/FragSoc/barotrauma-docker?style=flat-square">
-    <img alt="TestedVersion" src="https://img.shields.io/badge/tested%20with-0.9.9.1-informational?style=flat-square">
-</center>
+    <img alt="TestedVersion" src="https://img.shields.io/badge/tested%20with-0.12.0.3-informational?style=flat-square">
+</div>
 
 
 ---
 
 A [docker](https://www.docker.com/) image for running a dedicated server for the game [Barotrauma](https://barotraumagame.com/).
-Tested with server version `0.9.9.1`.
 
 ## Usage
 
