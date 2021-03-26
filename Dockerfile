@@ -13,6 +13,7 @@ ENV HOME=$INSTALL_LOC
 
 # Build args
 ARG UID=999
+ARG GID=999
 ARG GAME_PORT=27015
 ARG STEAM_PORT=27016
 ARG APPID=1026340
@@ -21,7 +22,7 @@ ARG APPID=1026340
 RUN apt-get update && \
     apt-get install --no-install-recommends --assume-yes icu-devtools && \
     # Create a dedicated user
-    useradd -rs /bin/false -d $INSTALL_LOC -u $UID barotrauma && \
+    useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g $GID barotrauma && \
     # Install the barotrauma server
     steamcmd \
         +login anonymous \
