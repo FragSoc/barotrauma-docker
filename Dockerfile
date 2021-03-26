@@ -22,6 +22,7 @@ ARG APPID=1026340
 RUN apt-get update && \
     apt-get install --no-install-recommends --assume-yes icu-devtools && \
     # Create a dedicated user
+    groupadd -r -g $GID barotrauma && \
     useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g $GID barotrauma && \
     # Install the barotrauma server
     steamcmd \
