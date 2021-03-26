@@ -22,7 +22,7 @@ docker build -t barotrauma .
 docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
-**Note:** *the UID of the user in the container defaults to `999`, pass `UID` as a build arg to change this*
+**Note:** *the UID+GID of the user in the container defaults to `999`, pass `UID` and `GID` as build args to change this*
 
 ### Ports
 
@@ -31,13 +31,13 @@ docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 
 ### Volumes
 
-The container uses two volumes:
+The container uses three volumes:
 
 - Server configuration files at `/config`
 - Mods files at `/mods`
 - Saves at `/saves`
 
-**Note:** *if you use a [bind mount](https://docs.docker.com/storage/bind-mounts/), the host path you mount into the container *must* be owned by the UID you passed to the build (default `999`)*
+**Note:** *if you use [bind mounts](https://docs.docker.com/storage/bind-mounts/), the host paths you mount into the container *must* be readable+writable by the UID and/or GID you passed to the build (default `999`)*
 
 ## Mods
 
@@ -45,7 +45,7 @@ A minimal shell script is included to install mods with.
 The script can be invoked (inside the container) with:
 
 ```bash
-install-mod <steam username> <list of workshop IDs>
+install-mod <steam username> <space-delimited list of workshop IDs...>
 ```
 
 - You will be prompted by steamcmd to log in, this is because the steam workshop requires someone who owns the game to be logged in to download anything
