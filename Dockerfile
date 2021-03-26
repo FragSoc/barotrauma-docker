@@ -44,7 +44,7 @@ RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so && \
         $INSTALL_LOC/Data/karmasettings.xml \
         $CONF_BASE && \
     ln -s $CONFIG_LOC/serversettings.xml $INSTALL_LOC/serversettings.xml && \
-    ln -s $CONFIG_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
+    ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     ln -s $CONFIG_LOC/clientpermissions.xml $INSTALL_LOC/Data/clientpermissions.xml && \
     ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
     ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml && \
