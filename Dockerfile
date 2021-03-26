@@ -20,24 +20,29 @@ ARG APPID=1026340
 # Update and install unicode symbols
 RUN apt-get update && \
     apt-get install --no-install-recommends --assume-yes icu-devtools && \
+    # Symlink the game's steam client object into the include directory
+    ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so && \
     # Create a dedicated user
     groupadd -r -g $GID barotrauma && \
     useradd -rs /bin/false -d $INSTALL_LOC -u $UID -g barotrauma barotrauma && \
-    # Install the barotrauma server
-    steamcmd \
+    # Setup directories
+    mkdir -p $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC && \
+    chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC
+
+# Install scripts
+COPY install-mod.sh /usr/bin/install-mod
+
+# Switch to our unprivileged user
+WORKDIR $INSTALL_LOC
+USER barotrauma
+
+# Install the barotrauma server
+RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
         +app_update $APPID validate \
-        +quit
-
-# Install scripts
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY install-mod.sh /usr/bin/install-mod
-
-# Symlink the game's steam client object into the include directory
-RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so && \
-    # Sort configs and directories
-    mkdir -p $CONFIG_LOC $CONF_BASE && \
+        +quit && \
+    # Setup config folder
     mv \
         $INSTALL_LOC/serversettings.xml \
         $INSTALL_LOC/Data/clientpermissions.xml \
@@ -50,19 +55,13 @@ RUN ln -s $INSTALL_LOC/linux64/steamclient.so /usr/lib/steamclient.so && \
     ln -s $CONFIG_LOC/permissionpresets.xml $INSTALL_LOC/Data/permissionpresets.xml && \
     ln -s $CONFIG_LOC/karmasettings.xml $INSTALL_LOC/Data/karmasettings.xml && \
     # Setup mods folder
-    mv $INSTALL_LOC/Mods $MODS_LOC && \
+    mv $INSTALL_LOC/Mods/* $MODS_LOC && \
     ln -s $MODS_LOC $INSTALL_LOC/Mods && \
     # Setup saves folder
-    mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" $SAVES_LOC && \
-    ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma" && \
-    # Set directory permissions
-    chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $MODS_LOC $SAVES_LOC
+    mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" && \
+    ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
 
-# User and I/O
-USER barotrauma
+# I/O and exec
 VOLUME $CONFIG_LOC $MODS_LOC $SAVES_LOC
 EXPOSE $GAME_PORT/udp $STEAM_PORT/udp
-
-# Exec
-WORKDIR $INSTALL_LOC
 ENTRYPOINT ["./DedicatedServer"]
