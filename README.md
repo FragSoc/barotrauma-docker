@@ -22,12 +22,12 @@ docker build -t barotrauma https://github.com/FragSoc/barotrauma-docker.git && \
     docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
-**Note:** *the UID+GID of the user in the container defaults to `999`, pass `UID` and `GID` as build args to change this*
-
 ### Ports
 
 - Port `27015/udp` *must* be opened for client connections
 - Port `27016/udp` can optionally be opened for steam communication
+
+Both of these can be changed, see below.
 
 ### Volumes
 
@@ -38,6 +38,17 @@ The container uses three volumes:
 - Saves at `/saves`
 
 **Note:** *if you use [bind mounts](https://docs.docker.com/storage/bind-mounts/), the host paths you mount into the container *must* be readable+writable by the UID and/or GID you passed to the build (default `999`)*
+
+### Build Args
+
+Argument Key | Default Value | Description
+---|---|---
+`UID` | `999` | The *nix UID to assign to the user in the container
+`GID` | `999` | The *nix GID to assign to the container user's primary group
+`GAME_PORT` | `27015` | The port to open and assign for the game, must still be set in configuration
+`STEAM_PORT` | `27016` | The port to open and assign for steam queries, must still be set in configuration
+`APPID` | `1026340` | The steam appid to install for the server, unlikely to need changing
+`STEAM_BETA` | | The string to pass to `steamcmd` to install a beta version of the game, eg. `-beta mybetaname -betapassword letmein`
 
 ## Mods
 

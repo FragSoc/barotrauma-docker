@@ -37,10 +37,11 @@ USER barotrauma
 
 # Install the barotrauma server
 ARG APPID=1026340
+ARG STEAM_BETA
 RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
-        +app_update $APPID validate \
+        +app_update $APPID $STEAM_BETA validate \
         +quit
 
 # Setup mods folder
