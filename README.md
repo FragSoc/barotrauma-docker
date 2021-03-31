@@ -15,11 +15,11 @@ A [docker](https://www.docker.com/) image for running a dedicated server for the
 
 ## Usage
 
-An example sequence to build then run:
+### Quickstart
 
 ```bash
-docker build -t barotrauma .
-docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
+docker build -t barotrauma https://github.com/FragSoc/barotrauma-docker.git && \
+    docker run -d -p 27015:27015/udp -p 27016:27016/udp barotrauma
 ```
 
 **Note:** *the UID+GID of the user in the container defaults to `999`, pass `UID` and `GID` as build args to change this*
