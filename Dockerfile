@@ -14,9 +14,6 @@ ENV HOME=$INSTALL_LOC
 # Build args
 ARG UID=999
 ARG GID=999
-ARG GAME_PORT=27015
-ARG STEAM_PORT=27016
-ARG APPID=1026340
 
 # Update and install unicode symbols
 RUN apt-get update && \
@@ -39,6 +36,7 @@ WORKDIR $INSTALL_LOC
 USER barotrauma
 
 # Install the barotrauma server
+ARG APPID=1026340
 RUN steamcmd \
         +login anonymous \
         +force_install_dir $INSTALL_LOC \
@@ -64,7 +62,9 @@ RUN mv $INSTALL_LOC/Mods/* $MODS_LOC && \
     mkdir -p "$INSTALL_LOC/Daedalic Entertainment GmbH" && \
     ln -s $SAVES_LOC "$INSTALL_LOC/Daedalic Entertainment GmbH/Barotrauma"
 
-# I/O and exec
-VOLUME $CONFIG_LOC $MODS_LOC $SAVES_LOC
+ARG GAME_PORT=27015
+ARG STEAM_PORT=27016
 EXPOSE $GAME_PORT/udp $STEAM_PORT/udp
+
+VOLUME $CONFIG_LOC $MODS_LOC $SAVES_LOC
 ENTRYPOINT ["/docker-entrypoint.sh"]
