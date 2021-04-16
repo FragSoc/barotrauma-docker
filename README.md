@@ -47,6 +47,7 @@ Argument Key | Default Value | Description
 `GID` | `999` | The *nix GID to assign to the container user's primary group
 `GAME_PORT` | `27015` | The port to open and assign for the game, must still be set in configuration
 `STEAM_PORT` | `27016` | The port to open and assign for steam queries, must still be set in configuration
+`STEAM_EPOCH` | | Used to rebuild the image when a new game version is released, retaining the cached `apt` packages etc. Value itself is ignored. When you want to rebuild the image for the latest version of the game, use any unique value (the current timestamp is a good idea).
 `APPID` | `1026340` | The steam appid to install for the server, unlikely to need changing
 `STEAM_BETA` | | The string to pass to `steamcmd` to install a beta version of the game, eg. `-beta mybetaname -betapassword letmein`
 
