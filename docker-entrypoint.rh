@@ -4,6 +4,11 @@
     src: "/config_player.xml.j2"
     dest: "/barotrauma/config_player.xml"
 
+# TODO: temp file for testing, remove me
+- template:
+    src: "/config_player.xml.j2"
+    dest: "/barotrauma/config_player.xml.test"
+
 - command:
     argv:
       - "bash"

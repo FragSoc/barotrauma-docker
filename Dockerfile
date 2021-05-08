@@ -28,13 +28,6 @@ RUN apt-get update && \
     mkdir -p $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC $CONFIG_BASE && \
     chown -R barotrauma:barotrauma $CONFIG_LOC $INSTALL_LOC $SAVES_LOC $MODS_LOC $CONFIG_BASE
 
-# Install scripts
-COPY install-mod.sh /usr/bin/install-mod
-COPY docker-entrypoint.rh /docker-entrypoint.rh
-COPY --chown=root --from=rash /bin/rash /usr/bin/rash
-COPY config_player.xml.j2 /config_player.xml.j2
-COPY config-copy.sh /config-copy.sh
-
 # Switch to our unprivileged user
 WORKDIR $INSTALL_LOC
 USER barotrauma
@@ -49,9 +42,17 @@ RUN steamcmd \
         +app_update $APPID $STEAM_BETA validate \
         +quit
 
+# Install scripts
+COPY install-mod.sh /usr/bin/install-mod
+COPY docker-entrypoint.rh /docker-entrypoint.rh
+COPY --chown=root --from=rash /bin/rash /usr/bin/rash
+COPY config_player.xml.j2 /config_player.xml.j2
+COPY config-copy.sh /config-copy.sh
+
 # Setup mods folder
 RUN mv $INSTALL_LOC/Mods/* $MODS_LOC && \
-    ln -fs $MODS_LOC $INSTALL_LOC/Mods && \
+    rm -r $INSTALL_LOC/Mods && \
+    ln -s $MODS_LOC $INSTALL_LOC/Mods && \
     # Setup config folder
     mv \
         $INSTALL_LOC/serversettings.xml \

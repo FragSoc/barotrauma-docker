@@ -51,12 +51,12 @@
     inventoryscale="1" />
   <contentpackages>
     <core
-      name="Vanilla 0.9" />
+      name="Vanilla 0.9" />{% if get_env(name="ENABLED_MODS", default="") != "" %}
     <regular>
-      {% for mod in getenv(name="ENABLED_MODS", default="") | split(pat=",") %}
-      <package name="{{ mod }}" enabled=true/>
+      {% for mod_path in get_env(name="ENABLED_MODS", default="") | split(pat=",") %}<package name="{{ mod_path }}" enabled=true/>
       {% endfor %}
-    </regular>
+    </regular>{% else %}
+    <regular />{% endif %}
   </contentpackages>
   <gameplay>
     <jobpreferences />
