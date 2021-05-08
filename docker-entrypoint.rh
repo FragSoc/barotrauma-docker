@@ -1,0 +1,15 @@
+---
+
+- template:
+    src: "/config_player.xml.j2"
+    dest: "/barotrauma/config_player.xml"
+
+- command:
+    argv:
+      - "bash"
+      - "/config-copy.sh"
+
+- command:
+    transfer_pid_1: true
+    argv:
+      - "./DedicatedServer"

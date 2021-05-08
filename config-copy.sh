@@ -1,6 +1,5 @@
 #!/bin/bash
-
-set -e
+set -eo pipefail
 
 CONFIGS=(
     serversettings.xml
@@ -15,5 +14,3 @@ for c in "${CONFIGS[@]}"; do
         cp "$CONFIG_BASE/$c" "$CONFIG_LOC"
     fi
 done
-
-"$INSTALL_LOC/DedicatedServer" $@

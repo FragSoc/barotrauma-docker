@@ -1,3 +1,4 @@
+FROM rustagainshell/rash:1.0.0 AS rash
 FROM steamcmd/steamcmd
 MAINTAINER Laura Demkowicz-Duffy <fragsoc@yusu.org>
 
@@ -29,7 +30,10 @@ RUN apt-get update && \
 
 # Install scripts
 COPY install-mod.sh /usr/bin/install-mod
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.rh /docker-entrypoint.rh
+COPY --chown=root --from=rash /bin/rash /usr/bin/rash
+COPY config_player.xml.j2 /config_player.xml.j2
+COPY config-copy.sh /config-copy.sh
 
 # Switch to our unprivileged user
 WORKDIR $INSTALL_LOC
@@ -48,7 +52,6 @@ RUN steamcmd \
 # Setup mods folder
 RUN mv $INSTALL_LOC/Mods/* $MODS_LOC && \
     ln -fs $MODS_LOC $INSTALL_LOC/Mods && \
-    ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     # Setup config folder
     mv \
         $INSTALL_LOC/serversettings.xml \
@@ -69,4 +72,4 @@ ARG STEAM_PORT=27016
 EXPOSE $GAME_PORT/udp $STEAM_PORT/udp
 
 VOLUME $CONFIG_LOC $MODS_LOC $SAVES_LOC
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["rash", "/docker-entrypoint.rh"]
