@@ -18,6 +18,7 @@ Additionally, the system should not prevent people manually loading their own cu
 - Does `steamcmd` support updating mods in-place? If so, things are simplified a lot __so long as the mods folders aren't moved from what `steamcmd` expects__
 - Volume for mods?
 - Does the `player_config` file need the filepaths to match the mod name?
+- What if mods have the wrong canonicalisation in their filelist paths? `sed` in the install script?
 
 Given the above difficulties, if the ideal cannot be achieved, we could have a manually-invoked script to download files from the steam workshop, and have an ENV var to enable them at boot.
 This has the additional advantage of letting people manage their files manually, and just selectively enabling them; perhaps this is preferable anyway?
