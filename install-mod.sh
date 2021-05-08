@@ -21,13 +21,10 @@ install_command+=("+quit")
 # Download the mods
 command ${install_command[@]}
 
-# Move them
-cp -r "$RETRIEVE_DIR"/* "$MODS_LOC"
-rm -rf "$RETRIEVE_DIR"/*
-
-# Print config lines
-printf "\n\nEnter the following line into your config_player.xml file to enable the mod:\n"
-for mod_num in "${mod_nums[@]}"; do
-    mod_name=$(grep "Mods/\K.+?(?=/filelist.xml)" "$MODS_LOC/$mod_num/filelist.xml" -oP)
-    printf "<package name=\"%s\" enabled=\"true\"/>\n" "$mod_name"
+# Move them, removing old copies
+for mod in "${mod_nums[@]}"; do
+    if [[ -d "$MODS_LOC/$mod" ]]; then
+        rm -rf "$MODS_LOC/$mod"
+    fi
+    mv "$RETRIEVE_DIR/$mod" "$MODS_LOC/$mod"
 done

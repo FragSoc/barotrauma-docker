@@ -14,10 +14,15 @@ Additionally, the system should not prevent people manually loading their own cu
 
 - Should have support for statically baking mods into the image and inserting them into the mods config alongside the runtime mods
   - If rash templating works this should be as easy as a separate env var that's ignored by the download script
+  - Can just modify the template file to add them for now
 - Should also support manually-added, non-workshop mods - another separate env var?
-- Does `steamcmd` support updating mods in-place? If so, things are simplified a lot __so long as the mods folders aren't moved from what `steamcmd` expects__
-- Volume for mods?
-- Does the `player_config` file need the filepaths to match the mod name?
+  - With the current solution this actually doesn't matter, mods are passed as paths, not necessarily workshop IDs
+- ~~Does `steamcmd` support updating mods in-place? If so, things are simplified a lot __so long as the mods folders aren't moved from what `steamcmd` expects__~~
+  - Steam's annoying download path for mods necessitates that we basically redownload them every time anyway
+- ~~Volume for mods?~~
+  - Already in the image
+- ~~Does the `player_config` file need the filepaths to match the mod name?~~
+  - It looks like it might use the passed path to find the correct name of the mod and corrects the file accordingly
 - What if mods have the wrong canonicalisation in their filelist paths? `sed` in the install script?
 
 Given the above difficulties, if the ideal cannot be achieved, we could have a manually-invoked script to download files from the steam workshop, and have an ENV var to enable them at boot.
