@@ -53,6 +53,13 @@ Argument Key | Default Value | Description
 
 ## Mods
 
+### Enabling
+
+To enable mods you've placed within the `/mods` within the container, pass the `ENABLED_MODS` env var to the container.
+This should be a comma-separated list of the folder names within the `/mods` folder which you want to load into the session.
+
+### Install Script
+
 A minimal shell script is included to install mods with.
 The script can be invoked (inside the container) with:
 
@@ -61,8 +68,7 @@ install-mod <steam username> <space-delimited list of workshop IDs...>
 ```
 
 - You will be prompted by steamcmd to log in, this is because the steam workshop requires someone who owns the game to be logged in to download anything
-- The script will give you a list of lines to enter into your `/config/config_player.xml` file (make sure you get them inside the root tag)
-- Some mods may require special attention to paths inside their `filelist.xml` files
+- **[Currently Unverified]** Some mods may require special attention to paths inside their `filelist.xml` files
 
 ## Licensing
 
