@@ -2,6 +2,7 @@
 set -e
 
 # Perma-vars
+# This is the steam appid of the client, not the server!
 BAROTRAUMA_ID=602960
 DOWNLOAD_DIR=/tmp
 RETRIEVE_DIR=$DOWNLOAD_DIR/steamapps/workshop/content/$BAROTRAUMA_ID

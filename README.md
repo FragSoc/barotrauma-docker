@@ -61,7 +61,7 @@ This should be a comma-separated list of the folder names within the `/mods` fol
 ### Install Script
 
 A minimal shell script is included to install mods with.
-The script can be invoked (inside the container) with:
+The script can be invoked (inside the container, make sure you're in an interactive session) with:
 
 ```bash
 install-mod <steam username> <space-delimited list of workshop IDs...>
