@@ -55,7 +55,7 @@
     {% if get_env(name="ENABLED_MODS", default="") != "" %}
     <regular>
       {% for mod_path in get_env(name="ENABLED_MODS", default="") | split(pat=",") %}
-      <package name="{{ mod_path }}" />
+      <package name="{{ mod_path }}" enabled="true" />
       {% endfor %}
     </regular>
     {% else %}
