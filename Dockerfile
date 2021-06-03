@@ -47,7 +47,8 @@ RUN steamcmd \
 
 # Setup mods folder
 RUN mv $INSTALL_LOC/Mods/* $MODS_LOC && \
-    ln -fs $MODS_LOC $INSTALL_LOC/Mods && \
+    rmdir $INSTALL_LOC/Mods && \
+    ln -s $MODS_LOC $INSTALL_LOC/Mods && \
     ln -s $MODS_LOC/config_player.xml $INSTALL_LOC/config_player.xml && \
     # Setup config folder
     mv \
