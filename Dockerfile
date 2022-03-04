@@ -1,4 +1,5 @@
-FROM steamcmd/steamcmd
+ARG BASE_IMAGE=steamcmd/steamcmd
+FROM ${BASE_IMAGE}
 MAINTAINER Laura Demkowicz-Duffy <fragsoc@yusu.org>
 
 # Directories
